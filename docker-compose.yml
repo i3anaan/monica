@@ -4,19 +4,27 @@ services:
     build: .
     image: monicahq/monicahq
     links:
-      - mysql
+      - postgres
     ports:
-      - 80:80
+      - 8080:8080
     env_file: .env
     volumes:
-      - ./persist/storage/app/public:/var/www/monica/storage/app/public
+      - /home/i3anaan/data/monica:/var/www/monica/storage/app/public
 
-  mysql:
-    image: mysql:5.7
+  postgres:
+    image: postgres
+    restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=sekret_root_password
-      - MYSQL_DATABASE=monica
-      - MYSQL_USER=homestead
-      - MYSQL_PASSWORD=secret
+      - POSTGRES_PASSWORD=CHnOMRpahjH6Z9qnro8nYvZiLxLMbx7o
     volumes:
-      - ./persist/mysql:/var/lib/mysql
+      - /home/i3anaan/data/monica_postgres:/var/lib/postgresql/data
+
+#  mysql:
+#    image: mysql:5.7
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=sekret_root_password
+#      - MYSQL_DATABASE=monica
+#      - MYSQL_USER=homestead
+#      - MYSQL_PASSWORD=secret
+#    volumes:
+#      - ./home/i3anaan/data/monica_mysql:/var/lib/mysql
