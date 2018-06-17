@@ -4,21 +4,34 @@ services:
     build: .
     image: monicahq/monicahq
     links:
-      - postgres
+      - mysql
     ports:
-      - 8080:8080
+      - 8080:80
     env_file: .env
+    hostname: 127.0.0.1
     volumes:
       - /home/i3anaan/data/monica:/var/www/monica/storage/app/public
 
-  postgres:
-    image: postgres
-    restart: always
+#  postgres:
+#    image: postgres
+#    restart: always
+#    environment:
+#      - POSTGRES_PASSWORD=CHnOMRpahjH6Z9qnro8nYvZiLxLMbx7o
+#      - POSTGRES_USER=monica
+#    volumes:
+#      - /home/i3anaan/data/monica_postgres:/var/lib/postgresql/data
+
+  mysql:
+    image: hypriot/rpi-mysql
     environment:
-      - POSTGRES_PASSWORD=CHnOMRpahjH6Z9qnro8nYvZiLxLMbx7o
-      - POSTGRES_USER=monica
+      - MYSQL_ROOT_PASSWORD=CHnOMRpahjH6Z9qnro8nYvZiLxLMbx7o
+      - MYSQL_DATABASE=monica
+      - MYSQL_USER=monica
+      - MYSQL_PASSWORD=CHnOMRpahjH6Z9qnro8nYvZiLxLMbx7o
     volumes:
-      - /home/i3anaan/data/monica_postgres:/var/lib/postgresql/data
+      - /home/i3anaan/data/monica_mysql:/var/lib/mysql
+
+
 
 #  mysql:
 #    image: mysql:5.7
